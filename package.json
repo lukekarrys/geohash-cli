@@ -1,6 +1,6 @@
 {
   "name": "xkcd-geohash",
-  "description": "Find out info about today's geohash for your graticule. Inspired by xkcd",
+  "description": "CLI and JS tool to find as much info as possible about today's (or any date's) geohashes.",
   "version": "1.0.0",
   "author": "Luke Karrys",
   "bin": {
@@ -52,5 +52,10 @@
     "prepublish": "npm run compile",
     "start": "babel-node src/cli.js",
     "test": "babel-tape-runner test/*.js | tap-spec"
+  },
+  "standard": {
+    "ignore": [
+      "**/lib/**"
+    ]
   }
 }
