@@ -1,7 +1,7 @@
 {
   "name": "xkcd-geohash",
   "description": "CLI and JS tool to find as much info as possible about today's (or any date's) geohashes.",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "author": "Luke Karrys",
   "bin": {
     "geohash": "./lib/cli.js"
