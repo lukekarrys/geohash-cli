@@ -39,7 +39,8 @@
   "license": "MIT",
   "main": "lib/geohash.js",
   "pre-commit": [
-    "lint"
+    "lint",
+    "test"
   ],
   "repository": {
     "type": "git",
