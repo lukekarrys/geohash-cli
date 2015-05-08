@@ -5,19 +5,18 @@ import {red, green, underline} from 'colors/safe'
 const debug = debugThe('geohash:whereami')
 
 const MISSING_SCRIPT_ERR = `
-${red('This module needs to know your location to find the closest geohash!')}
+${red('An executable called whereami could not be found.')}
 
-By default it looks for an executable called ${underline('whereami')} somewhere in your $PATH,
-but it looks like that couldn't be found.
+By default it looks for the executable ${underline('whereami')} somewhere
+in your $PATH, but it looks like that couldn't be found.
 
-If you are on ${underline('OS X')}, the easiest way to do this is to use homebrew and run:
+If you are on ${underline('OS X')}, the easiest way to do this is to use
+homebrew and run:
 
 ${green('brew install whereami')}
 
-The next easiest way is to separately find your geolocation and pass it to this
-script by using the ${underline('--location')} argument:
-
-${green('geohash --location=33.3813,-111.9409')}
+Otherwise checkout the repo from ${green('http://victor.github.io/whereami/')}
+for ways to install from source.
 `
 
 const whereami = (cb) => {
@@ -28,9 +27,10 @@ const whereami = (cb) => {
       return cb(err)
     }
 
-    const flatData = stdout.toString().replace(/\n/g, '')
-    debug(flatData)
-    cb(null, flatData.split(','))
+    const location = stdout.toString().replace(/\n/g, '').split(',').map(Number)
+    debug(`lat,lon: ${location}`)
+
+    cb(null, location)
   })
 }
 
