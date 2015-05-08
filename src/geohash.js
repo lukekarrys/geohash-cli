@@ -1,60 +1,13 @@
-import moment from 'moment'
 import {waterfall} from 'async'
 import debugThe from 'debug'
-import Geo from 'geo-graticule'
-import geohash from 'geohash-coordinates'
-
 import partial from 'lodash/function/partial'
-import assign from 'lodash/object/assign'
-import flatten from 'lodash/array/flatten'
 
 import whereami from './whereami'
 import geohashMap from './geohashMap'
+import fillOptions from './fillOptions'
+import getCoordinates from './getCoordinates'
 
 const debug = debugThe('geohash:geohash')
-
-const fillRequiredOptions = (options, cb) => {
-  const filledOptions = assign({}, options)
-
-  if (!filledOptions.date) {
-    filledOptions.date = moment().format('YYYY-MM-DD')
-    debug(`No date argument. Using ${filledOptions.date}`)
-  }
-
-  if (!filledOptions.location) {
-    return whereami((err, result) => {
-      if (err) return cb(err)
-
-      filledOptions.location = result
-      debug(`No location argument. Using ${filledOptions.location}`)
-
-      cb(null, filledOptions)
-    })
-  }
-
-  cb(null, filledOptions)
-}
-
-const locationAndDateToCoords = (options, cb) => {
-  const {location} = options
-
-  geohash.all(options, (err, result) => {
-    if (err) return cb(err)
-    const {global, graticule, neighbors} = result
-
-    debug(`Location ${location}`)
-    debug(`Global: ${global}`)
-    debug(`Graticule: ${graticule}`)
-    debug(`Neighbors: ${neighbors}`)
-
-    cb(null, {
-      geo: new Geo(location),
-      global: new Geo(global),
-      graticule: new Geo(graticule),
-      geohashes: neighbors
-    })
-  })
-}
 
 const toGeoHash = (options = {}, cb) => {
   if (typeof options === 'function') {
@@ -63,38 +16,40 @@ const toGeoHash = (options = {}, cb) => {
   }
 
   const {key} = options
-  const filledOptions = partial(fillRequiredOptions, options)
+  const filledOptions = partial(fillOptions, options)
 
-  waterfall([filledOptions, locationAndDateToCoords], (err, results) => {
+  waterfall([filledOptions, getCoordinates], (err, results) => {
     if (err) return cb(err)
 
-    const {global, graticule, geohashes, geo} = results
+    const {global, graticule, geohashes, location} = results
+    const globalDistance = location.milesFrom(global)
+    const graticuleDistance = location.milesFrom(graticule)
 
     const map = geohashMap({
       key,
+      location,
       markers: geohashes,
       center: graticule.graticuleCenter().join(','),
       drawGraticulePaths: true,
-      size: '800x800',
-      location: geo
+      size: '800x800'
     })
 
     const globalMap = geohashMap({
       key,
+      location,
       markers: [global],
-      center: geo,
-      location: geo,
+      center: location,
       zoom: 2
     })
 
-    debug(`Location: ${geo.toString()}`)
+    debug(`Location: ${location.toString()}`)
     debug(`Global: ${global}`)
     debug(`Graticule: ${graticule}`)
     debug(`Geohashes: ${geohashes}`)
     debug(`Map: ${decodeURIComponent(map)}`)
     debug(`Global map: ${decodeURIComponent(globalMap)}`)
 
-    cb(null, {map, globalMap})
+    cb(null, {map, globalMap, globalDistance, graticuleDistance})
   })
 }
 

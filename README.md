@@ -28,7 +28,6 @@ This is built from other modules that were created to be smaller parts of this o
 
 ## TODO
 
-- Add `latest` option which will get all the possible today and future geohashes and globals
 - Add options to only get graticule, global, or neighbors instead of all
 
 
