@@ -26,11 +26,6 @@ This is built from other modules that were created to be smaller parts of this o
 - [`hex-frac-dec-frac`](https://www.npmjs.com/package/hex-frac-dec-frac)
 
 
-## TODO
-
-- Add options to only get graticule, global, or neighbors instead of all
-
-
 ## Contributing
 
 This is written in ES6 and compiled to ES5 using [`babel`](https://babeljs.io/). The code you require will come from the `lib/` directory which gets compiled from `src/` before each `npm publish`.

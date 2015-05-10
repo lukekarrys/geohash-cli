@@ -1,6 +1,6 @@
 {
   "name": "xkcd-geohash",
-  "description": "CLI and JS tool to find as much info as possible about today's (or any date's) geohashes.",
+  "description": "CLI to find as much info as possible about today's (or any date's) geohashes.",
   "version": "0.0.0",
   "author": "Luke Karrys",
   "bin": {
@@ -13,13 +13,13 @@
     "async": "^0.9.0",
     "colors": "^1.1.0",
     "debug": "^2.1.3",
-    "geo-graticule": "^2.0.2",
-    "geohash-coordinates": "^1.1.0",
+    "geo-graticule": "^2.0.3",
+    "geohash-coordinates": "^1.1.2",
     "lodash": "^3.8.0",
     "minimist": "^1.1.1",
     "moment": "^2.10.2",
     "open": "0.0.5",
-    "qs": "^2.4.1"
+    "qs": "^2.4.2"
   },
   "devDependencies": {
     "babel": "^5.2.16",

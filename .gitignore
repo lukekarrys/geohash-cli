@@ -29,3 +29,4 @@ node_modules
 .validate.json
 .jshintignore
 .jshintrc
+djia_cache.json

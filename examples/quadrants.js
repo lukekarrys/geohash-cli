@@ -2,11 +2,11 @@ import geohash from '../src/geohash'
 import open from 'open'
 import async from 'async'
 import debugThe from 'debug'
-import omit from 'lodash/object/omit'
-import pick from 'lodash/object/pick'
+import path from 'path'
+import pluck from 'lodash/collection/pluck'
 
-const debug = debugThe('geohash:example')
-
+const cache = path.join(path.resolve(__dirname, '..'), 'djia_cache.json')
+const openMap = (map, cb) => open(map, null, cb)
 const date = '2015-05-06'
 const locations = [
   '34.5,113.5',
@@ -16,18 +16,13 @@ const locations = [
 ]
 
 async.eachSeries(locations, (location, cb) => {
-  geohash({date, location}, (err, results) => {
+  geohash({date, location, cache}, (err, results) => {
     if (err) return console.error(err)
 
-    const {map, globalMap} = results
-    debug(`Map: ${date} ${location}`)
+    const {maps} = results
+    const localMaps = pluck(maps, 'map')
+    const globalMaps = pluck(maps, 'globalMap')
 
-    open(map, null, () => {
-      if (location === locations[3]) {
-        open(globalMap, null, cb)
-      } else {
-        cb()
-      }
-    })
+    async.eachSeries(localMaps.concat(globalMaps), openMap, cb)
   })
 })

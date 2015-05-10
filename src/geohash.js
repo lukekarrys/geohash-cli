@@ -1,6 +1,7 @@
 import {waterfall} from 'async'
 import debugThe from 'debug'
 import partial from 'lodash/function/partial'
+import transform from 'lodash/object/transform'
 
 import whereami from './whereami'
 import geohashMap from './geohashMap'
@@ -21,35 +22,36 @@ const toGeoHash = (options = {}, cb) => {
   waterfall([filledOptions, getCoordinates], (err, results) => {
     if (err) return cb(err)
 
-    const {global, graticule, geohashes, location} = results
-    const globalDistance = location.milesFrom(global)
-    const graticuleDistance = location.milesFrom(graticule)
-
-    const map = geohashMap({
-      key,
-      location,
-      markers: geohashes,
-      center: graticule.graticuleCenter().join(','),
-      drawGraticulePaths: true,
-      size: '800x800'
-    })
-
-    const globalMap = geohashMap({
-      key,
-      location,
-      markers: [global],
-      center: location,
-      zoom: 2
-    })
-
-    debug(`Location: ${location.toString()}`)
-    debug(`Global: ${global}`)
+    const {byDate, graticule, location} = results
+    debug(`Location: ${location}`)
     debug(`Graticule: ${graticule}`)
-    debug(`Geohashes: ${geohashes}`)
-    debug(`Map: ${decodeURIComponent(map)}`)
-    debug(`Global map: ${decodeURIComponent(globalMap)}`)
 
-    cb(null, {map, globalMap, globalDistance, graticuleDistance})
+    const maps = transform(byDate, (result, hashes, date) => {
+      const {global, geohashes} = hashes
+
+      debug(`Global: ${global}`)
+      debug(`Geohashes: ${geohashes}`)
+
+      const map = geohashMap({
+        key,
+        location,
+        geohashes,
+        center: graticule.graticuleCenter().join(','),
+        drawGraticulePaths: true
+      })
+
+      const globalMap = geohashMap({
+        key,
+        location,
+        geohashes: [global],
+        center: location,
+        zoom: null
+      })
+
+      result[date] = {map, globalMap}
+    }, {})
+
+    cb(null, {maps})
   })
 }
 
