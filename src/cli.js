@@ -39,6 +39,8 @@ const {argv} = yargs
   .alias('h', 'help')
   .default('h', false)
 
+  .default('cache', true)
+
   .version(version)
 
 const noOuput = (!argv.o && !argv.j && !argv.t) ? 'Please use either --json, --table, or --open' : ''
@@ -103,6 +105,7 @@ geohash(pick(argv, 'date', 'days', 'location', 'key', 'cache'), (err, results) =
   }
 
   if (argv.table) {
+    if (argv.json) console.log('\n')
     each(dates, (values, date) => {
       const distanceTable = new Table({ head: [date, 'Distances', 'Miles'] })
       distanceTable.push(['', '', ''])
