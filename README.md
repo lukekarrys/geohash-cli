@@ -1,4 +1,4 @@
-xkcd-cli
+geohash-cli
 =========================
 
 CLI tool to find as much info as possible about today's (or any date's) geohashes.
