@@ -1,7 +1,7 @@
 {
   "name": "geohash-cli",
   "description": "CLI to find as much info as possible about today's (or any date's) geohashes.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Luke Karrys",
   "bin": {
     "geohash": "./lib/cli.js"
