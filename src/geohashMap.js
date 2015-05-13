@@ -5,9 +5,10 @@ import debugThe from 'debug'
 import omit from 'lodash/object/omit'
 import invoke from 'lodash/collection/invoke'
 import partial from 'lodash/function/partial'
+import identity from 'lodash/utility/identity'
 import Geo from 'geo-graticule'
 
-const debug = debugThe('geohash:map')
+const debug = debugThe('geohash-static-map')
 const BASE_URL = 'https://maps.googleapis.com/maps/api/staticmap?'
 
 const delimiter = '|'
@@ -36,7 +37,7 @@ const getMapUrl = (options = {}) => {
   const params = defaults(options, {
     size: '640x640',
     maptype: 'hybrid',
-    zoom: 8,
+    zoom: 7,
     markers: [],
     path: '',
     key: ''
@@ -71,12 +72,7 @@ const getMapUrl = (options = {}) => {
     debug(`Location: ${locationMarker}`)
   }
 
-  // If key is an empty string it will still be encoded but will cause
-  // and error with the google maps request
-  if (!params.key) delete params.key
-  if (!params.zoom) delete params.zoom
-
-  const qsStr = stringify(params, {arrayFormat: 'repeat'})
+  const qsStr = stringify(omit(params, (val) => !identity(val)), {arrayFormat: 'repeat'})
   debug(`Map: ${qsStr}`)
 
   return BASE_URL + qsStr

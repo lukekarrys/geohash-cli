@@ -5,6 +5,7 @@ import whereami from './whereami'
 
 const debug = debugThe('geohash:options')
 
+// Returns the options passed in but with date and location filled in
 const fillOptions = (options, cb) => {
   const filledOptions = assign({}, options)
 

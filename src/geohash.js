@@ -2,6 +2,7 @@ import {waterfall} from 'async'
 import debugThe from 'debug'
 import partial from 'lodash/function/partial'
 import transform from 'lodash/object/transform'
+import assign from 'lodash/object/assign'
 
 import whereami from './whereami'
 import geohashMap from './geohashMap'
@@ -23,10 +24,13 @@ const toGeoHash = (options = {}, cb) => {
     if (err) return cb(err)
 
     const {byDate, graticule, location} = results
+    const milesFromLoc = (geo) => {
+      return {distance: location.milesFrom(geo)}
+    }
     debug(`Location: ${location}`)
     debug(`Graticule: ${graticule}`)
 
-    const maps = transform(byDate, (result, hashes, date) => {
+    const data = transform(byDate, (result, hashes, date) => {
       const {global, geohashes} = hashes
 
       debug(`Global: ${global}`)
@@ -37,21 +41,28 @@ const toGeoHash = (options = {}, cb) => {
         location,
         geohashes,
         center: graticule.graticuleCenter().join(','),
-        drawGraticulePaths: true
+        drawGraticulePaths: true,
+        zoom: 7
       })
 
       const globalMap = geohashMap({
         key,
         location,
         geohashes: [global],
-        center: location,
+        center: location.toString(),
+        drawGraticulePaths: false,
         zoom: null
       })
 
-      result[date] = {map, globalMap}
-    }, {})
+      result[date] = {
+        map,
+        globalMap,
+        global: assign(milesFromLoc(global), global.toJSON()),
+        geohashes: geohashes.map((hash) => assign(milesFromLoc(hash), hash.toJSON()))
+      }
+    })
 
-    cb(null, {maps})
+    cb(null, assign(data, {location: location.toJSON()}))
   })
 }
 
