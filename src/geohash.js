@@ -4,12 +4,11 @@ import partial from 'lodash/function/partial'
 import transform from 'lodash/object/transform'
 import assign from 'lodash/object/assign'
 
-import whereami from './whereami'
 import geohashMap from './geohashMap'
 import fillOptions from './fillOptions'
 import getCoordinates from './getCoordinates'
 
-const debug = debugThe('geohash:geohash')
+const debug = debugThe('geohash:main')
 
 const toGeoHash = (options = {}, cb) => {
   if (typeof options === 'function') {
@@ -30,7 +29,7 @@ const toGeoHash = (options = {}, cb) => {
     debug(`Location: ${location}`)
     debug(`Graticule: ${graticule}`)
 
-    const data = transform(byDate, (result, hashes, date) => {
+    const dates = transform(byDate, (result, hashes, date) => {
       const {global, geohashes} = hashes
 
       debug(`Global: ${global}`)
@@ -62,7 +61,7 @@ const toGeoHash = (options = {}, cb) => {
       }
     })
 
-    cb(null, assign(data, {location: location.toJSON()}))
+    cb(null, {dates, location: location.toJSON()})
   })
 }
 

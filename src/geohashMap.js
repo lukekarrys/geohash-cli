@@ -1,14 +1,12 @@
 import {stringify} from 'qs'
 import defaults from 'lodash/object/defaults'
-import assign from 'lodash/object/assign'
 import debugThe from 'debug'
 import omit from 'lodash/object/omit'
 import invoke from 'lodash/collection/invoke'
 import partial from 'lodash/function/partial'
 import identity from 'lodash/utility/identity'
-import Geo from 'geo-graticule'
 
-const debug = debugThe('geohash-static-map')
+const debug = debugThe('geohash:map')
 const BASE_URL = 'https://maps.googleapis.com/maps/api/staticmap?'
 
 const delimiter = '|'

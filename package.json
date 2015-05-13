@@ -1,5 +1,5 @@
 {
-  "name": "xkcd-geohash",
+  "name": "geohash-cli",
   "description": "CLI to find as much info as possible about today's (or any date's) geohashes.",
   "version": "0.0.0",
   "author": "Luke Karrys",
@@ -7,10 +7,11 @@
     "geohash": "./lib/cli.js"
   },
   "bugs": {
-    "url": "https://github.com/lukekarrys/xkcd-geohash/issues"
+    "url": "https://github.com/lukekarrys/geohash-cli/issues"
   },
   "dependencies": {
     "async": "^0.9.0",
+    "cli-table": "^0.3.1",
     "colors": "^1.1.0",
     "debug": "^2.1.3",
     "geo-graticule": "^2.0.3",
@@ -29,7 +30,7 @@
     "tap-spec": "^3.0.0",
     "tape": "^4.0.0"
   },
-  "homepage": "https://github.com/lukekarrys/xkcd-geohash",
+  "homepage": "https://github.com/lukekarrys/geohash-cli",
   "keywords": [
     "geo",
     "geohash",
@@ -44,7 +45,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/lukekarrys/xkcd-geohash"
+    "url": "https://github.com/lukekarrys/geohash-cli"
   },
   "scripts": {
     "compile": "babel src --out-dir lib",
