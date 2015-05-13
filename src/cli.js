@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 
-import minimist from 'minimist'
+import yargs from 'yargs'
 import open from 'open'
 import debugThe from 'debug'
 import async from 'async'
-import omit from 'lodash/object/omit'
 import pick from 'lodash/object/pick'
 import pluck from 'lodash/collection/pluck'
+import invoke from 'lodash/collection/invoke'
 import each from 'lodash/collection/each'
 import compact from 'lodash/array/compact'
 import chunk from 'lodash/array/chunk'
 import Table from 'cli-table'
 
+import {version} from '../package'
 import geohash from './geohash'
 
 const openMap = (map, cb) => open(map, null, cb)
@@ -22,15 +23,32 @@ const decodeMap = (key, value) => {
 }
 
 const debug = debugThe('geohash:cli')
-const argv = minimist(process.argv.slice(2), {
-  boolean: ['open', 'pretty', 'json', 'table', 'help'],
-  default: {
-    table: true
-  }
-})
+const {argv} = yargs
+  .alias('o', 'open')
+  .default('o', false)
 
-if (argv.help) {
+  .alias('p', 'pretty')
+  .default('p', false)
+
+  .alias('j', 'json')
+  .default('j', false)
+
+  .alias('t', 'table')
+  .default('t', false)
+
+  .alias('h', 'help')
+  .default('h', false)
+
+  .version(version)
+
+const noOuput = (!argv.o && !argv.j && !argv.t) ? 'Please use either --json, --table, or --open' : ''
+
+debug(argv)
+
+if (argv.help || noOuput) {
   console.log(`
+  ${noOuput}
+
   Data options
 
     --date=YYYY-MM-DD [today]
@@ -47,49 +65,50 @@ if (argv.help) {
     --key
       The Google maps static maps API key to use for your maps.
 
-    --cache
+    --cache [$HOME/.config/djia/djia_cache.json]
       The file or directory where you want to cache Dow Jones data.
 
   Output options
 
-    --open [false]
-      Open all maps in your default browser.
-
-    --json [true]
+    -j, --json [false]
       Output the full JSON information.
 
-    --pretty [false]
+    -p, --pretty [false]
       Make the json output prettier.
 
-    --table [true]
+    -t, --table [false]
       Output tables of all the distances for each day.
 
-    --help [false]
+    -o, --open [false]
+      Open all maps in your default browser.
+
+    -h, --help [false]
       You're looking at it.
+
+    --version
+      Output the version and exit.
   `)
   process.exit(0)
 }
 
-debug(omit(argv, '_'))
-
 geohash(pick(argv, 'date', 'days', 'location', 'key', 'cache'), (err, results) => {
-  if (err) return console.error(err.message || err)
+  if (err) return process.stderr(err.message || err)
 
   debug('Success')
 
   const {dates} = results
 
   if (argv.json) {
-    console.log(JSON.stringify(results, argv.pretty ? decodeMap : null, argv.pretty ? 2 : 0))
+    process.stdout.write(JSON.stringify(results, argv.pretty ? decodeMap : null, argv.pretty ? 2 : 0))
   }
 
   if (argv.table) {
     each(dates, (values, date) => {
-      const distanceTable = new Table({ head: [date, 'Distances', ''] })
+      const distanceTable = new Table({ head: [date, 'Distances', 'Miles'] })
       distanceTable.push(['', '', ''])
-      distanceTable.push.apply(distanceTable, chunk(pluck(values.geohashes, 'distance'), 3))
+      distanceTable.push.apply(distanceTable, chunk(invoke(pluck(values.geohashes, 'distance'), 'toFixed', 2), 3))
       distanceTable.push(['', '', ''])
-      distanceTable.push(['Global', values.global.distance, ''])
+      distanceTable.push(['Global', values.global.distance.toFixed(2), ''])
       console.log(distanceTable.toString())
     })
   }

@@ -15,6 +15,17 @@ I use this for [xkcd Geohashing](https://xkcd.com/426/).
 `npm install geohash-cli -g`
 
 
+## Dependencies
+
+In order to get your location (on OS X) you will need to install `whereami`. One way to do this is through Homebrew. You can run
+
+```
+brew install whereami
+```
+
+Otherwise visit the [whereami repo](http://victor.github.io/whereami/) for additional installation instructions.
+
+
 ## What it does
 
 This module aims to be pretty specialized compared to the [other modules](#other-modules) below, and generate some quick information about the geohashes. I'm happy to take suggestions for other things it could do!
@@ -73,25 +84,28 @@ Your location. By default it will try and use \`whereami\` to find your current 
 - `--key`
 The Google maps static maps API key to use for your maps. This only needs to be used if you'll be visiting for than 1000 map links in a 24 hour period. See the [Google docs](https://developers.google.com/maps/documentation/staticmaps/#api_key) for more info.
 
-- `--cache`
+- `--cache [$HOME/.config/djia/djia_cache.json]`
 The file or directory where you want to cache Dow Jones data. See the [djia module](https://www.npmjs.com/package/djia) documentation for more info.
 
 ### Output options
 
-- `--open [false]`
-Open all maps in your default browser.
-
-- `--json [true]`
+- `-j, --json [false]`
 Output the full JSON information.
 
-- `--pretty [false]`
+- `-p, --pretty [false]`
 Make the json output prettier.
 
-- `--table [true]`
+- `-t, --table [false]`
 Output tables of all the distances for each day.
 
-- `--help [false]`
-Output the help information.
+- `-o, --open [false]`
+Open all maps in your default browser.
+
+- `-h, --help [false]`
+Output the help information and exit.
+
+- `--version [false]`
+Output the version and exit.
 
 
 ## Other Modules
