@@ -94,7 +94,7 @@ if (argv.help || noOuput) {
 }
 
 geohash(pick(argv, 'date', 'days', 'location', 'key', 'cache'), (err, results) => {
-  if (err) return process.stderr(err.message || err)
+  if (err) return process.stderr.write(err.message || err)
 
   debug('Success')
 
