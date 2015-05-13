@@ -49,32 +49,32 @@ geohash --date=2015-05-05 --days=3 --json --table --pretty
 # for May 5th, 6th and 7th
 
 {
-  // Your current location or from the argument you passed in
+  # Your current location or from the argument you passed in
   location: {latitude, longitude}
-  // Hash of each date with data
+  # Hash of each date with data
   dates: {
     "2015-05-05": {
       map,
       globalMap,
       global: {distance, latitude, longitude},
       geohashes: [
-        // The 9 closest geohashes. Order by index:
-        // ----------------------------------
-        // |          |          |          |
-        // |     0    |     1    |     2    |
-        // |          |          |          |
-        // |          |          |          |
-        // ----------------------------------
-        // |          |          |          |
-        // |     5    |     4    |     3    |
-        // |          |  (home)  |          |
-        // |          |          |          |
-        // ----------------------------------
-        // |          |          |          |
-        // |     6    |     7    |     8    |
-        // |          |          |          |
-        // |          |          |          |
-        // ----------------------------------
+        # The 9 closest geohashes. Order by index:
+        # ----------------------------------
+        # |          |          |          |
+        # |     0    |     1    |     2    |
+        # |          |          |          |
+        # |          |          |          |
+        # ----------------------------------
+        # |          |          |          |
+        # |     5    |     4    |     3    |
+        # |          |  (home)  |          |
+        # |          |          |          |
+        # ----------------------------------
+        # |          |          |          |
+        # |     6    |     7    |     8    |
+        # |          |          |          |
+        # |          |          |          |
+        # ----------------------------------
         {distance, latitude, longitude},
         {distance, latitude, longitude},
         ...
