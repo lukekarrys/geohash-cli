@@ -1,6 +1,6 @@
 import moment from 'moment'
 import debugThe from 'debug'
-import assign from 'lodash/object/assign'
+import assign from 'lodash/assign'
 import whereami from './whereami'
 
 const debug = debugThe('geohash:options')

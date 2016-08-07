@@ -1,8 +1,8 @@
 import {waterfall} from 'async'
 import debugThe from 'debug'
-import partial from 'lodash/function/partial'
-import transform from 'lodash/object/transform'
-import assign from 'lodash/object/assign'
+import partial from 'lodash/partial'
+import transform from 'lodash/transform'
+import assign from 'lodash/assign'
 
 import geohashMap from './geohashMap'
 import fillOptions from './fillOptions'

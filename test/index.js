@@ -1,6 +1,6 @@
 import test from 'tape'
-import pluck from 'lodash/collection/pluck'
-import compact from 'lodash/array/compact'
+import map from 'lodash/map'
+import compact from 'lodash/compact'
 import geohash from '../src/geohash'
 import path from 'path'
 
@@ -14,13 +14,13 @@ test('geohash', (t) => {
     const dateKeys = Object.keys(dates)
     t.equal(dateKeys.length, 3, 'has 3 dates')
 
-    const geohashes = compact(pluck(dates, 'geohashes'))
+    const geohashes = compact(map(dates, 'geohashes'))
     t.equal(geohashes.length, 3)
     t.equal(geohashes[0].length, 9)
     t.equal(geohashes[1].length, 9)
     t.equal(geohashes[2].length, 9)
 
-    const globals = compact(pluck(dates, 'global'))
+    const globals = compact(map(dates, 'global'))
     t.equal(globals.length, 3)
     t.ok(globals[0].distance)
     t.ok(globals[0].latitude)

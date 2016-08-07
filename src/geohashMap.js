@@ -1,10 +1,10 @@
 import {stringify} from 'qs'
-import defaults from 'lodash/object/defaults'
+import defaults from 'lodash/defaults'
 import debugThe from 'debug'
-import omit from 'lodash/object/omit'
-import invoke from 'lodash/collection/invoke'
-import partial from 'lodash/function/partial'
-import identity from 'lodash/utility/identity'
+import omit from 'lodash/omit'
+import invokeMap from 'lodash/invokeMap'
+import partial from 'lodash/partial'
+import identity from 'lodash/identity'
 
 const debug = debugThe('geohash:map')
 const BASE_URL = 'https://maps.googleapis.com/maps/api/staticmap?'
@@ -19,7 +19,7 @@ const toMarker = (color, label, geo) => {
 }
 
 const toGraticulePaths = (geohashes) => {
-  const pathPoints = invoke(geohashes, 'graticuleBox')
+  const pathPoints = invokeMap(geohashes, 'graticuleBox')
     .map(appendFirstIndex)
     .map((geohash) => geohash.join(delimiter))
     .join(delimiter)

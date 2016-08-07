@@ -4,12 +4,12 @@ import yargs from 'yargs'
 import open from 'open'
 import debugThe from 'debug'
 import async from 'async'
-import pick from 'lodash/object/pick'
-import pluck from 'lodash/collection/pluck'
-import invoke from 'lodash/collection/invoke'
-import each from 'lodash/collection/each'
-import compact from 'lodash/array/compact'
-import chunk from 'lodash/array/chunk'
+import pick from 'lodash/pick'
+import map from 'lodash/map'
+import invokeMap from 'lodash/invokeMap'
+import each from 'lodash/each'
+import compact from 'lodash/compact'
+import chunk from 'lodash/chunk'
 import Table from 'cli-table'
 
 import {version} from '../package'
@@ -109,7 +109,7 @@ geohash(pick(argv, 'date', 'days', 'location', 'key', 'cache'), (err, results) =
     each(dates, (values, date) => {
       const distanceTable = new Table({ head: [date, 'Distances', 'Miles'] })
       distanceTable.push(['', '', ''])
-      distanceTable.push.apply(distanceTable, chunk(invoke(pluck(values.geohashes, 'distance'), 'toFixed', 2), 3))
+      distanceTable.push.apply(distanceTable, chunk(invokeMap(map(values.geohashes, 'distance'), 'toFixed', 2), 3))
       distanceTable.push(['', '', ''])
       distanceTable.push(['Global', values.global.distance.toFixed(2), ''])
       console.log(distanceTable.toString())
@@ -117,7 +117,7 @@ geohash(pick(argv, 'date', 'days', 'location', 'key', 'cache'), (err, results) =
   }
 
   if (argv.open) {
-    const maps = pluck(dates, 'map').concat(pluck(dates, 'globalMap'))
+    const maps = map(dates, 'map').concat(map(dates, 'globalMap'))
     async.eachSeries(compact(maps), openMap)
   }
 })
