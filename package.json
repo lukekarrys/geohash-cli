@@ -45,7 +45,8 @@
   "main": "lib/geohash.js",
   "pre-commit": [
     "lint",
-    "test"
+    "test",
+    "validate"
   ],
   "repository": {
     "type": "git",
