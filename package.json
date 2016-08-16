@@ -20,7 +20,7 @@
     "moment": "^2.14.1",
     "open": "0.0.5",
     "qs": "^6.2.1",
-    "yargs": "^4.8.1"
+    "yargs": "^5.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
