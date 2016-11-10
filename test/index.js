@@ -1,13 +1,21 @@
 import test from 'tape'
+import nock from 'nock'
 import map from 'lodash/map'
 import compact from 'lodash/compact'
 import geohash from '../src/geohash'
-import path from 'path'
+import fixtures from './fixtures'
 
-const cache = path.join(path.resolve(__dirname, '..'), 'djia_cache.json')
+const mockDate = (date) => nock('http://geo.crox.net/djia').get(`/${date}`).reply(200, fixtures[date])
 
 test('geohash', (t) => {
-  geohash({date: '2015-05-05', location: '34.5,-111.5', days: 3, cache}, (err, results) => {
+  mockDate('2015-05-04')
+  mockDate('2015-05-05')
+  mockDate('2015-05-05')
+  mockDate('2015-05-06')
+  mockDate('2015-05-06')
+  mockDate('2015-05-07')
+
+  geohash({date: '2015-05-05', location: '34.5,-111.5', days: 3}, (err, results) => {
     t.equal(err, null, 'err is null')
 
     const dates = results.dates
@@ -25,6 +33,8 @@ test('geohash', (t) => {
     t.ok(globals[0].distance)
     t.ok(globals[0].latitude)
     t.ok(globals[0].longitude)
+
+    t.equal(nock.activeMocks().length, 0, 'no mocks left')
 
     t.end()
   })
