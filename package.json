@@ -16,11 +16,11 @@
     "debug": "^2.2.0",
     "geo-graticule": "^2.0.5",
     "geohash-coordinates": "^1.1.6",
-    "lodash": "^4.14.1",
+    "lodash": "^4.16.2",
     "moment": "^2.14.1",
     "open": "0.0.5",
     "qs": "^6.2.1",
-    "yargs": "^5.0.0"
+    "yargs": "^6.0.0"
   },
   "devDependencies": {
     "@tap-format/spec": "^0.2.0",
