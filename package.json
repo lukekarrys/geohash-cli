@@ -17,7 +17,7 @@
     "geo-graticule": "^2.0.5",
     "geohash-coordinates": "^1.1.6",
     "lodash": "^4.16.2",
-    "moment": "^2.14.1",
+    "moment": "^2.16.0",
     "open": "0.0.5",
     "qs": "^6.2.1",
     "yargs": "^7.0.1"
