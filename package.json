@@ -13,7 +13,7 @@
     "async": "^2.0.1",
     "cli-table": "^0.3.1",
     "colors": "^1.1.2",
-    "debug": "^2.2.0",
+    "debug": "^2.3.2",
     "geo-graticule": "^2.0.5",
     "geohash-coordinates": "^1.1.6",
     "lodash": "^4.16.2",
