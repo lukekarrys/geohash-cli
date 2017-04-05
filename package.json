@@ -29,7 +29,7 @@
     "babel-tape-runner": "^2.0.1",
     "git-validate": "^2.1.4",
     "nock": "^9.0.3",
-    "standard": "^9.0.0",
+    "standard": "^10.0.0",
     "tape": "^4.6.0"
   },
   "files": [
