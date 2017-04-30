@@ -1,6 +1,8 @@
 geohash-cli
 =========================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/lukekarrys/geohash-cli.svg)](https://greenkeeper.io/)
+
 CLI tool to find as much info as possible about today's (or any date's) geohashes.
 
 I use this for [xkcd Geohashing](https://xkcd.com/426/).
