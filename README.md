@@ -1,8 +1,6 @@
 geohash-cli
 =========================
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/lukekarrys/geohash-cli.svg)](https://greenkeeper.io/)
-
 CLI tool to find as much info as possible about today's (or any date's) geohashes.
 
 I use this for [xkcd Geohashing](https://xkcd.com/426/).
@@ -10,6 +8,7 @@ I use this for [xkcd Geohashing](https://xkcd.com/426/).
 [![NPM](https://nodei.co/npm/geohash-cli.png)](https://nodei.co/npm/geohash-cli/)
 [![Build Status](https://travis-ci.org/lukekarrys/geohash-cli.png?branch=master)](https://travis-ci.org/lukekarrys/geohash-cli)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+[![Greenkeeper badge](https://badges.greenkeeper.io/lukekarrys/geohash-cli.svg)](https://greenkeeper.io/)
 
 
 ## Install
