@@ -10,27 +10,27 @@
     "url": "https://github.com/lukekarrys/geohash-cli/issues"
   },
   "dependencies": {
-    "async": "^2.0.1",
+    "async": "^2.5.0",
     "cli-table": "^0.3.1",
     "colors": "^1.1.2",
     "debug": "^3.0.0",
     "geo-graticule": "^2.0.5",
-    "geohash-coordinates": "^1.1.6",
-    "lodash": "^4.16.2",
-    "moment": "^2.14.1",
+    "geohash-coordinates": "^1.1.7",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "open": "0.0.5",
-    "qs": "^6.2.1",
-    "yargs": "^8.0.1"
+    "qs": "^6.5.0",
+    "yargs": "^8.0.2"
   },
   "devDependencies": {
     "@tap-format/spec": "^0.2.0",
-    "babel-cli": "^6.11.4",
-    "babel-preset-es2015": "^6.13.2",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-tape-runner": "^2.0.1",
-    "git-validate": "^2.1.4",
-    "nock": "^9.0.3",
-    "standard": "^10.0.0",
-    "tape": "^4.6.0"
+    "git-validate": "^2.2.2",
+    "nock": "^9.0.14",
+    "standard": "^10.0.3",
+    "tape": "^4.8.0"
   },
   "files": [
     "lib/*"
@@ -57,7 +57,7 @@
     "compile": "babel src --out-dir lib",
     "example": "babel-node examples/quadrants.js",
     "lint": "standard",
-    "prepublish": "npm run compile",
+    "prepare": "npm run compile",
     "start": "babel-node src/cli.js",
     "test": "babel-tape-runner test/*.js | tap-format-spec",
     "validate": "npm ls"
