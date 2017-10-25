@@ -20,7 +20,7 @@
     "moment": "^2.18.1",
     "open": "0.0.5",
     "qs": "^6.5.0",
-    "yargs": "^9.0.1"
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
     "@tap-format/spec": "^0.2.0",
