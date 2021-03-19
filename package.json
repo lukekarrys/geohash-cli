@@ -18,7 +18,7 @@
     "geohash-coordinates": "^1.1.7",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
-    "open": "0.0.5",
+    "open": "6.0.0",
     "qs": "^6.5.0",
     "yargs": "^10.0.3"
   },
